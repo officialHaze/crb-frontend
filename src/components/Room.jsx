@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 
 function hasLocalToken() {
@@ -9,11 +10,11 @@ function hasLocalToken() {
 	return localToken;
 }
 
-async function getData(token) {
+async function getMessages(token, id) {
 	try {
 		const { data } = await axios({
 			method: "GET",
-			url: "http://localhost:8000/api/rooms/",
+			url: `http://localhost:8000/api/rooms/${id}/`,
 			headers: {
 				Authorization: `Token ${token}`,
 			},
@@ -25,10 +26,11 @@ async function getData(token) {
 	}
 }
 
-function Main() {
+export default function Room() {
 	const [hasToken, setHasToken] = useState(false);
 	const [dataSet, setDataSet] = useState([]);
-	const [roomName, setRoomName] = useState("");
+	const [message, setMessage] = useState("");
+	const { room_name, id } = useParams();
 
 	useEffect(() => {
 		const localToken = hasLocalToken();
@@ -39,7 +41,7 @@ function Main() {
 		}
 		const getDataFromBackend = async () => {
 			try {
-				const data = await getData(localToken);
+				const data = await getMessages(localToken, id);
 				setDataSet(data);
 			} catch (err) {
 				localStorage.removeItem("login_bearer");
@@ -47,23 +49,22 @@ function Main() {
 			}
 		};
 		getDataFromBackend();
-	}, []);
+	}, [id]);
 
 	const handleChange = (e) => {
 		const { value } = e.target;
-		setRoomName(value);
+		setMessage(value);
 	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log(roomName);
 		const token = localStorage.getItem("login_bearer");
 		try {
 			const res = await axios({
 				method: "POST",
-				url: "http://localhost:8000/api/rooms/create/",
+				url: `http://localhost:8000/api/rooms/${id}/post-message/`,
 				data: {
-					room_name: roomName,
+					message_body: message,
 				},
 				headers: {
 					Authorization: `Token ${token}`,
@@ -71,7 +72,7 @@ function Main() {
 			});
 			if (res.status === 200) {
 				try {
-					const data = await getData(token);
+					const data = await getMessages(token, id);
 					setDataSet(data);
 				} catch (err) {
 					console.log(err);
@@ -84,21 +85,22 @@ function Main() {
 
 	return hasToken ? (
 		<div>
-			<form onSubmit={handleSubmit}>
-				<h1>Create Room</h1>
-				<input onChange={handleChange} placeholder="Room Name" value={roomName} />
-				<button>Submit</button>
-			</form>
+			<h1>{room_name}</h1>
+			<h2 style={{ textAlign: "left", paddingLeft: "3rem" }}>Messages: </h2>
 			{dataSet.map((data, index) => {
 				return (
-					<div key={data.room_id} style={{ textAlign: "left", padding: "1rem 2rem" }}>
-						<h1>
-							<a href={`/room/${data.room_name}/${data.room_id}`}>{data.room_name}</a>
-						</h1>
-						<p>Room created by: {data.host.username}</p>
+					<div key={index} style={{ textAlign: "left", padding: "1rem 5rem" }}>
+						<p>
+							<span style={{ fontWeight: "bold" }}>{data.message_creator.username}</span>:{" "}
+							{data.message_body}
+						</p>
 					</div>
 				);
 			})}
+			<form onSubmit={handleSubmit}>
+				<textarea onChange={handleChange} placeholder="Text" value={message} />
+				<button type="submit">Send</button>
+			</form>
 		</div>
 	) : (
 		<div>
@@ -106,5 +108,3 @@ function Main() {
 		</div>
 	);
 }
-
-export default Main;
