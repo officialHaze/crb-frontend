@@ -1,0 +1,33 @@
+.heading {
+	color: white;
+	font-weight: normal;
+}
+
+.registered-users-list-container {
+	min-width: 25rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+	text-align: left;
+	padding: 3rem 2rem;
+	background: #393053;
+	border-radius: 1rem;
+}
+
+ul {
+	list-style-type: none;
+	color: #46c2cb;
+}
+
+li {
+	padding: 1rem;
+}
+
+li > p:nth-child(1) {
+	font-size: 1.15rem;
+}
+
+li > p:nth-child(2) {
+	font-size: 0.9rem;
+	color: #fcffe7;
+}

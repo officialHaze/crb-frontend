@@ -1,0 +1,91 @@
+main {
+	display: flex;
+	flex-direction: column;
+}
+
+.room-list-section {
+	font-family: "Montserrat", sans-serif;
+	padding: 2rem;
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.rooms-container {
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+	background: #393053;
+	padding: 3rem 5rem;
+	border-radius: 1rem;
+}
+
+.rooms-container > h1 {
+	padding: 1.5rem;
+	font-size: 3rem;
+	text-align: left;
+}
+
+.rooms {
+	display: flex;
+	flex-direction: column;
+	gap: 0.85rem;
+	min-width: 40rem;
+	background: #635985;
+	padding: 2rem;
+	border-radius: 1rem;
+	box-shadow: 4px 4px 20px #342b4b;
+}
+
+.rooms > p {
+	font-size: 1.25rem;
+	/* font-weight: bold; */
+	color: #bad7e9;
+}
+
+.rooms > h1 {
+	font-size: 1.55rem;
+}
+
+.room-create-form {
+	padding: 2rem;
+	background: #393053;
+	display: flex;
+	gap: 1rem;
+	justify-content: center;
+}
+
+.dashboard-user-info-container {
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+}
+
+a {
+	text-decoration: none;
+	color: white;
+}
+
+input {
+	padding: 0.85rem 1rem;
+	outline: none;
+	border: none;
+	font-size: 1rem;
+	border-radius: 0.5rem;
+	width: 30%;
+	background: #635985;
+	color: white;
+}
+
+::placeholder {
+	color: rgba(255, 255, 255, 0.664);
+}
+
+button {
+	padding: 0 1.5rem;
+	outline: none;
+	border: none;
+	border-radius: 0.25rem;
+	background: #89c4e1;
+	cursor: pointer;
+	font-size: 0.85rem;
+}

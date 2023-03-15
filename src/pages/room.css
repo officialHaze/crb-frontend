@@ -1,0 +1,26 @@
+main {
+	color: white;
+}
+
+.message-participants-section {
+	margin-top: 1rem;
+	padding: 5rem 2rem;
+}
+
+.participants-container {
+	background: #393053;
+	padding: 2rem;
+	border-radius: 1rem;
+	height: 55rem;
+	overflow: auto;
+}
+
+.participants-container > h1 {
+	font-weight: normal;
+	padding: 1rem;
+}
+
+.participant-username {
+	color: #46cb4d;
+	font-size: 1.25rem;
+}

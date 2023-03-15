@@ -47,8 +47,12 @@ function Register() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const res = await axios.post("http://localhost:8000/api/users/create/", registerCredentials);
+			const res = await axios.post(
+				"https://chatroombackend-officialhaze.onrender.com/api/users/create/",
+				registerCredentials
+			);
 			console.log(res.status);
+			localStorage.setItem("user", registerCredentials.username);
 			setIsRegistered(true);
 		} catch (err) {
 			console.log(err.message);

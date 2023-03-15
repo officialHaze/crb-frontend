@@ -46,10 +46,13 @@ export default function Login() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const { user_email, user_password } = login_credentials;
-		const { data } = await axios.post("http://localhost:8000/api/auth/", {
-			username: user_email,
-			password: user_password,
-		});
+		const { data } = await axios.post(
+			"https://chatroombackend-officialhaze.onrender.com/api/auth/",
+			{
+				username: user_email,
+				password: user_password,
+			}
+		);
 		const auth_token = data.token;
 		localStorage.setItem("login_bearer", auth_token);
 		setHasToken(true);
@@ -75,7 +78,7 @@ export default function Login() {
 				/>
 				<button>Submit</button>
 			</form>
-			{hasToken && <a href="/main">Continue to main page!</a>}
+			{hasToken && <a href="/">Continue to main page!</a>}
 		</div>
 	);
 }

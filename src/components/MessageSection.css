@@ -1,0 +1,77 @@
+.message-container {
+	background: #635985;
+	padding: 1rem 0;
+	width: 70rem;
+	height: 50rem;
+	border-radius: 1rem 1rem 0 0;
+	text-align: left;
+	color: black;
+	/* font-family: "Poppins", sans-serif; */
+}
+
+.message-body-wrapper {
+	font-size: 1.25rem;
+	margin: 0.5rem 0;
+	padding: 1rem 5rem;
+}
+
+.messages {
+	max-width: 22rem;
+	height: auto;
+	overflow-wrap: break-word;
+	line-height: 2;
+	background: #ebebeb;
+	padding: 1rem;
+	border-radius: 1rem;
+}
+
+.message-length-heading {
+	font-size: 2rem;
+	padding: 1rem;
+}
+
+.text-submit-form {
+	position: relative;
+}
+
+.text-submit-btn {
+	position: absolute;
+	right: 0;
+	height: 95%;
+	background: #393053;
+	color: #62cdff;
+	font-size: 1.05rem;
+}
+
+/* Customizing the default scroll bar  */
+/* width */
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #393053;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+
+textarea {
+	padding: 1rem 0.85rem;
+	outline: none;
+	border: none;
+	resize: none;
+	border-radius: 0 0 1rem 1rem;
+	background: #393053;
+	font-size: 1.05rem;
+	color: white;
+	width: 100%;
+}
