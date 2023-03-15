@@ -59,37 +59,39 @@ export default function Dashboard() {
 
 	const handleChange = (e) => {
 		const { value } = e.target;
+		console.log(value);
 		setRoomName(value);
 	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		if (!roomName === "") {
-			setRoomName("");
-			const token = localStorage.getItem("login_bearer");
-			try {
-				const res = await axios({
-					method: "POST",
-					url: "https://chatroombackend-officialhaze.onrender.com/api/rooms/create/",
-					data: {
-						room_name: roomName,
-					},
-					headers: {
-						Authorization: `Token ${token}`,
-					},
-				});
-				if (res.status === 200) {
-					try {
-						const data = await getData(token);
-						setDataSet(data);
-					} catch (err) {
-						console.log(err);
-					}
+		console.log(roomName);
+		// if (!roomName === "") {
+		setRoomName("");
+		const token = localStorage.getItem("login_bearer");
+		try {
+			const res = await axios({
+				method: "POST",
+				url: "https://chatroombackend-officialhaze.onrender.com/api/rooms/create/",
+				data: {
+					room_name: roomName,
+				},
+				headers: {
+					Authorization: `Token ${token}`,
+				},
+			});
+			if (res.status === 200) {
+				try {
+					const data = await getData(token);
+					setDataSet(data);
+				} catch (err) {
+					console.log(err);
 				}
-			} catch (err) {
-				console.log(err.message);
 			}
+		} catch (err) {
+			console.log(err.message);
 		}
+		// }
 	};
 
 	return hasToken ? (
