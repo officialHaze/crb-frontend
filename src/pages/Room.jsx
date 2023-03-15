@@ -92,7 +92,9 @@ export default function Room() {
 		};
 		getDataFromBackend();
 
-		const client = new W3CWebsocket(`wss://0.0.0.0:8000/ws/rooms/${id}/?token=${token}`);
+		const client = new W3CWebsocket(
+			`wss://chatroombackend-officialhaze.onrender.com/ws/rooms/${id}/?token=${token}`
+		);
 		client.onopen = () => {
 			console.log("websocket connection established!");
 		};
@@ -144,7 +146,9 @@ export default function Room() {
 			});
 			console.log(res.status);
 
-			const client = new W3CWebsocket(`wss://0.0.0.0:8000/ws/rooms/${id}/?token=${token}`);
+			const client = new W3CWebsocket(
+				`wss://chatroombackend-officialhaze.onrender.com/ws/rooms/${id}/?token=${token}`
+			);
 
 			client.onopen = () => {
 				client.send(
