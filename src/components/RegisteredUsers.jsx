@@ -9,6 +9,7 @@ async function getRegisteredUsers() {
 		const { data } = await axios({
 			method: "GET",
 			url: "https://chatroombackend-officialhaze.onrender.com/api/users/registered-users/",
+			// url: "http://localhost:8000/api/users/registered-users/",
 			headers: {
 				Authorization: `Token ${token}`,
 			},
@@ -16,7 +17,7 @@ async function getRegisteredUsers() {
 		if (data.length === 0) {
 			return data;
 		}
-		data.map((user) => {
+		data.map(user => {
 			if (!user.is_admin) {
 				usersArray.push(user);
 			}
@@ -53,7 +54,9 @@ export default function RegisteredUsers() {
 						day: "numeric",
 					});
 					return (
-						<li className="user" key={i}>
+						<li
+							className="user"
+							key={i}>
 							<p>@{user.username}</p>
 							<p>
 								<em>Joined on: {dateJoined}</em>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "./login.css";
 
 export default function Login() {
 	const [login_credentials, set_login_credentials] = useState({
@@ -17,11 +18,11 @@ export default function Login() {
 		}
 	}, []);
 
-	const handleChange = (e) => {
+	const handleChange = e => {
 		const { id, value } = e.target;
 		switch (id) {
 			case "email":
-				set_login_credentials((prevObj) => {
+				set_login_credentials(prevObj => {
 					return {
 						...prevObj,
 						user_email: value,
@@ -30,7 +31,7 @@ export default function Login() {
 				break;
 
 			case "password":
-				set_login_credentials((prevObj) => {
+				set_login_credentials(prevObj => {
 					return {
 						...prevObj,
 						user_password: value,
@@ -43,25 +44,28 @@ export default function Login() {
 		}
 	};
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async e => {
 		e.preventDefault();
 		const { user_email, user_password } = login_credentials;
 		const { data } = await axios.post(
 			"https://chatroombackend-officialhaze.onrender.com/api/auth/",
+			// "http://localhost:8000/api/auth/",
 			{
 				username: user_email,
 				password: user_password,
-			}
+			},
 		);
 		const auth_token = data.token;
 		localStorage.setItem("login_bearer", auth_token);
 		setHasToken(true);
 	};
 
-	return (
-		<div>
-			<h1>Login</h1>
-			<form onSubmit={handleSubmit}>
+	return !hasToken ? (
+		<div className="login-container">
+			<h1 style={{ color: "white" }}>Login</h1>
+			<form
+				className="login-form"
+				onSubmit={handleSubmit}>
 				<input
 					value={login_credentials.user_email}
 					onChange={handleChange}
@@ -76,9 +80,23 @@ export default function Login() {
 					placeholder="Password"
 					id="password"
 				/>
-				<button>Submit</button>
+				<button
+					type="#"
+					className="login-btn">
+					Login
+				</button>
+				<p className="sign-up-alert">
+					Not registered yet? <a href="/register">Signup here</a>
+				</p>
 			</form>
-			{hasToken && <a href="/">Continue to main page!</a>}
+			{/* {hasToken && <a href="/">Continue to main page!</a>} */}
+		</div>
+	) : (
+		<div className="logged-in-container">
+			<h1>You are logged in!</h1>
+			<p>
+				<a href="/">Click here to continue to Dashboard !</a>
+			</p>
 		</div>
 	);
 }

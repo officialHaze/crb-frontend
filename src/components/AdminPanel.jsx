@@ -8,6 +8,7 @@ async function getAdminUsers() {
 		const { data } = await axios({
 			method: "GET",
 			url: "https://chatroombackend-officialhaze.onrender.com/api/users/registered-users/",
+			// url: "http://localhost:8000/api/users/registered-users/",
 			headers: {
 				Authorization: `Token ${token}`,
 			},
@@ -15,7 +16,7 @@ async function getAdminUsers() {
 		if (data.length === 0) {
 			return data;
 		}
-		data.map((user) => {
+		data.map(user => {
 			if (user.is_admin) {
 				adminArray.push(user);
 			}
@@ -43,7 +44,7 @@ export default function AdminPanel() {
 				<h1 className="heading">Admin Panel:</h1>
 			</div>
 			<ul className="user-list">
-				{admins.map((admin, i) => {
+				{/* {admins.map((admin, i) => {
 					let dateJoined = new Date(admin.date_joined);
 					dateJoined = dateJoined.toLocaleString("en-US", {
 						year: "numeric",
@@ -58,7 +59,13 @@ export default function AdminPanel() {
 							</p>
 						</li>
 					);
-				})}
+				})} */}
+				<li className="user">
+					<p>@moinakdey</p>
+					<p>
+						<em>Joined on: March 12, 2023</em>
+					</p>
+				</li>
 			</ul>
 		</div>
 	);

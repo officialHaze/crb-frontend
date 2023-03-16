@@ -17,6 +17,7 @@ main {
 	background: #393053;
 	padding: 3rem 5rem;
 	border-radius: 1rem;
+	width: 50rem;
 }
 
 .rooms-container > h1 {
@@ -27,7 +28,7 @@ main {
 
 .rooms {
 	display: flex;
-	flex-direction: column;
+	justify-content: space-between;
 	gap: 0.85rem;
 	min-width: 40rem;
 	background: #635985;
@@ -36,13 +37,13 @@ main {
 	box-shadow: 4px 4px 20px #342b4b;
 }
 
-.rooms > p {
+.rooms > div > p {
 	font-size: 1.25rem;
-	/* font-weight: bold; */
+	padding-bottom: 1rem;
 	color: #bad7e9;
 }
 
-.rooms > h1 {
+.rooms > div > h1 {
 	font-size: 1.55rem;
 }
 
@@ -58,6 +59,31 @@ main {
 	display: flex;
 	flex-direction: column;
 	gap: 2rem;
+}
+
+.room-delete-btn,
+.room-create-btn {
+	padding: 0.5rem 1rem;
+	font-size: 1rem;
+	outline: none;
+	border: none;
+	border-radius: 0.25rem;
+	background: #89c4e1;
+	cursor: pointer;
+}
+
+.room-delete-btn {
+	background: #635985;
+	color: #f16767;
+}
+
+.room-create-btn {
+	position: absolute;
+	right: 35.5%;
+	height: 4.5%;
+	background: #635985;
+	color: white;
+	font-size: 1.15rem;
 }
 
 a {
@@ -80,12 +106,51 @@ input {
 	color: rgba(255, 255, 255, 0.664);
 }
 
-button {
-	padding: 0 1.5rem;
-	outline: none;
-	border: none;
-	border-radius: 0.25rem;
-	background: #89c4e1;
-	cursor: pointer;
-	font-size: 0.85rem;
+/* for small viewports  */
+@media only screen and (max-width: 600px) {
+	.room-list-section {
+		flex-direction: column;
+		gap: 5rem;
+		padding: 2rem 0.5rem;
+	}
+
+	.rooms-container {
+		width: 100%;
+		padding: 2.5rem 1rem;
+		height: 40rem;
+		overflow: auto;
+		font-size: 0.5rem;
+	}
+
+	.rooms {
+		min-width: 100%;
+		overflow-wrap: break-word;
+	}
+	.rooms > p {
+		font-size: 0.95rem;
+	}
+
+	.rooms > h1 {
+		font-size: 1.25rem;
+	}
+
+	.room-create-form {
+		position: relative;
+		padding: 2rem 0.85rem;
+	}
+
+	.room-create-btn {
+		position: absolute;
+		right: 1rem;
+		background: #635985;
+		height: 41%;
+		padding: 0.85rem;
+		font-weight: bold;
+		font-size: 1.25rem;
+		color: white;
+	}
+
+	input {
+		width: 100%;
+	}
 }

@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
+import "./login.css";
 
-function Register() {
+export default function Register() {
 	const [registerCredentials, setRegisterCredentials] = useState({
 		email: "",
 		username: "",
@@ -9,11 +10,11 @@ function Register() {
 	});
 	const [isRegistered, setIsRegistered] = useState(false);
 
-	const handleChange = (e) => {
+	const handleChange = e => {
 		const { id, value } = e.target;
 		switch (id) {
 			case "email":
-				setRegisterCredentials((prevObj) => {
+				setRegisterCredentials(prevObj => {
 					return {
 						...prevObj,
 						email: value,
@@ -22,7 +23,7 @@ function Register() {
 				break;
 
 			case "username":
-				setRegisterCredentials((prevObj) => {
+				setRegisterCredentials(prevObj => {
 					return {
 						...prevObj,
 						username: value,
@@ -31,7 +32,7 @@ function Register() {
 				break;
 
 			case "password":
-				setRegisterCredentials((prevObj) => {
+				setRegisterCredentials(prevObj => {
 					return {
 						...prevObj,
 						password: value,
@@ -44,12 +45,13 @@ function Register() {
 		}
 	};
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async e => {
 		e.preventDefault();
 		try {
 			const res = await axios.post(
 				"https://chatroombackend-officialhaze.onrender.com/api/users/create/",
-				registerCredentials
+				// `http://localhost:8000/api/users/create/`,
+				registerCredentials,
 			);
 			console.log(res.status);
 			localStorage.setItem("user", registerCredentials.username);
@@ -59,10 +61,12 @@ function Register() {
 		}
 	};
 
-	return (
-		<div>
-			<h1>Sign Up</h1>
-			<form onSubmit={handleSubmit}>
+	return isRegistered ? (
+		<div className="register-container">
+			<h1 style={{ color: "white" }}>Sign Up</h1>
+			<form
+				className="register-form"
+				onSubmit={handleSubmit}>
 				<input
 					onChange={handleChange}
 					value={registerCredentials.email}
@@ -84,11 +88,17 @@ function Register() {
 					type="password"
 					placeholder="password"
 				/>
-				<button>Submit</button>
+				<button
+					type="#"
+					className="register-btn">
+					Signup
+				</button>
 			</form>
-			{isRegistered && <a href="/login">Continue to the login page</a>}
+		</div>
+	) : (
+		<div className="registered-container">
+			<h1>You are registered!</h1>
+			<a href="/login">Click here to login and continue to the dashboard!</a>
 		</div>
 	);
 }
-
-export default Register;

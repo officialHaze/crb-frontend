@@ -24,3 +24,12 @@ main {
 	color: #46cb4d;
 	font-size: 1.25rem;
 }
+
+/* for small viewports  */
+@media only screen and (max-width: 600px) {
+	.message-participants-section {
+		flex-direction: column;
+		padding: 5rem 0.65rem;
+		gap: 5rem;
+	}
+}

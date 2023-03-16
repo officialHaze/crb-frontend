@@ -5,6 +5,9 @@ import { w3cwebsocket as W3CWebsocket } from "websocket";
 import MessageSection from "../components/MessageSection";
 import "./room.css";
 
+const localhostURL = "http://localhost:8000";
+const deployedURL = "https://chatroombackend-officialhaze.onrender.com";
+
 function hasLocalToken() {
 	const localToken = localStorage.getItem("login_bearer");
 	if (!localToken) {
@@ -17,7 +20,8 @@ async function getMessages(token, id) {
 	try {
 		const { data } = await axios({
 			method: "GET",
-			url: `https://chatroombackend-officialhaze.onrender.com/api/rooms/${id}/`,
+			url: `${deployedURL}/api/rooms/${id}/`,
+			// url: `${localhostURL}/api/rooms/${id}/`,
 			headers: {
 				Authorization: `Token ${token}`,
 			},
@@ -33,7 +37,8 @@ async function getParticipants(token, room_id) {
 	try {
 		const { data } = await axios({
 			method: "GET",
-			url: `https://chatroombackend-officialhaze.onrender.com/api/rooms/${room_id}/get-participants/`,
+			url: `${deployedURL}/api/rooms/${room_id}/get-participants/`,
+			// url: `${localhostURL}/api/rooms/${room_id}/get-participants/`,
 			headers: {
 				Authorization: `Token ${token}`,
 			},
@@ -66,7 +71,8 @@ export default function Room() {
 			try {
 				const res = await axios({
 					method: "POST",
-					url: `https://chatroombackend-officialhaze.onrender.com/api/rooms/${id}/participants/`,
+					url: `${deployedURL}/api/rooms/${id}/participants/`,
+					// url: `${localhostURL}/api/rooms/${id}/participants/`,
 					headers: {
 						Authorization: `Token ${token}`,
 					},
@@ -93,17 +99,18 @@ export default function Room() {
 		getDataFromBackend();
 
 		const client = new W3CWebsocket(
-			`wss://chatroombackend-officialhaze.onrender.com/ws/rooms/${id}/?token=${token}`
+			`wss://chatroombackend-officialhaze.onrender.com/ws/rooms/${id}/?token=${token}`,
 		);
-		client.onopen = () => {
-			console.log("websocket connection established!");
-		};
+		// const client = new W3CWebsocket(`ws://127.0.0.1:8000/ws/rooms/${id}/?token=${token}`);
+		// client.onopen = () => {
+		// 	console.log("websocket connection established!");
+		// };
 
-		client.onmessage = async (e) => {
+		client.onmessage = async e => {
 			const data = JSON.parse(e.data);
 
 			if (data.type === "chat_content") {
-				setDataSet((prevObj) => {
+				setDataSet(prevObj => {
 					return [...prevObj, data];
 				});
 			} else if (data.type === "user-joined") {
@@ -124,19 +131,23 @@ export default function Room() {
 		};
 	}, [id, token]);
 
-	const handleChange = (e) => {
+	const handleChange = e => {
 		const { value } = e.target;
 		setMessage(value);
 	};
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async e => {
 		e.preventDefault();
 		setMessage("");
+		const currentDate = new Date();
+
 		const username = localStorage.getItem("user");
+
 		try {
 			const res = await axios({
 				method: "POST",
-				url: `https://chatroombackend-officialhaze.onrender.com/api/rooms/${id}/post-message/`,
+				url: `${deployedURL}/api/rooms/${id}/post-message/`,
+				// url: `${localhostURL}/api/rooms/${id}/post-message/`,
 				data: {
 					message_body: message,
 				},
@@ -147,15 +158,17 @@ export default function Room() {
 			console.log(res.status);
 
 			const client = new W3CWebsocket(
-				`wss://chatroombackend-officialhaze.onrender.com/ws/rooms/${id}/?token=${token}`
+				`wss://chatroombackend-officialhaze.onrender.com/ws/rooms/${id}/?token=${token}`,
 			);
+			// const client = new W3CWebsocket(`ws://127.0.0.1:8000/ws/rooms/${id}/?token=${token}`);
 
 			client.onopen = () => {
 				client.send(
 					JSON.stringify({
 						message: message,
 						username: username,
-					})
+						created: currentDate,
+					}),
 				);
 			};
 		} catch (err) {
@@ -168,8 +181,7 @@ export default function Room() {
 			<h1 style={{ padding: "2rem" }}>{room_name}</h1>
 			<div
 				className="message-participants-section"
-				style={{ display: "flex", justifyContent: "space-evenly" }}
-			>
+				style={{ display: "flex", justifyContent: "space-evenly" }}>
 				<MessageSection
 					dataSet={dataSet}
 					messageValue={message}
@@ -180,7 +192,9 @@ export default function Room() {
 					<h1>Current Participants:</h1>
 					{participants.map((participant, index) => {
 						return (
-							<div className="participant-username" key={index}>
+							<div
+								className="participant-username"
+								key={index}>
 								<h3>@{participant.participant.username}</h3>
 							</div>
 						);
