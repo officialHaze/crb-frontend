@@ -53,7 +53,7 @@ export default function PrivateRoomsDashboard() {
 						Authorization: `Token ${token}`,
 					},
 				});
-				if (res.statusText === "OK") setIsRoomCreated(true);
+				setIsRoomCreated(true);
 			} catch (err) {
 				console.log(err.message);
 			}
