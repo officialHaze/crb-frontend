@@ -86,6 +86,35 @@ main {
 	font-size: 1.15rem;
 }
 
+/* private room creation btn  */
+.create-pvt-room-btn {
+	font-size: 0.9rem;
+	cursor: pointer;
+	background: #816797;
+	padding: 0.2rem;
+}
+
+.create-pvt-room-btn > a {
+	color: rgba(255, 255, 255, 0.801);
+}
+
+.room-cards-del-pvtKey-section {
+	text-align: right;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.pvt-key {
+	padding: 0;
+	font-size: 0.9rem;
+	color: rgba(255, 255, 255, 0.925);
+}
+
+.pvt-key-info {
+	color: rgba(252, 252, 252, 0.555);
+}
+
 a {
 	text-decoration: none;
 	color: white;

@@ -4,6 +4,7 @@ import axios from "axios";
 import { w3cwebsocket as W3CWebsocket } from "websocket";
 import MessageSection from "../components/MessageSection";
 import "./room.css";
+import RoomParticipants from "../components/RoomParticipants";
 
 const localhostURL = "http://localhost:8000";
 const deployedURL = "https://chatroombackend-officialhaze.onrender.com";
@@ -101,6 +102,9 @@ export default function Room() {
 		const client = new W3CWebsocket(
 			`wss://chatroombackend-officialhaze.onrender.com/ws/rooms/${id}/?token=${token}`,
 		);
+		client.onopen = () => {
+			console.log("WS connection established");
+		};
 		// const client = new W3CWebsocket(`ws://127.0.0.1:8000/ws/rooms/${id}/?token=${token}`);
 		// client.onopen = () => {
 		// 	console.log("websocket connection established!");
@@ -188,18 +192,7 @@ export default function Room() {
 					submit={handleSubmit}
 					change={handleChange}
 				/>
-				<div className="participants-container">
-					<h1>Current Participants:</h1>
-					{participants.map((participant, index) => {
-						return (
-							<div
-								className="participant-username"
-								key={index}>
-								<h3>@{participant.participant.username}</h3>
-							</div>
-						);
-					})}
-				</div>
+				<RoomParticipants participants={participants} />
 			</div>
 		</main>
 	) : (

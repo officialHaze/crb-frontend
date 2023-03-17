@@ -5,6 +5,9 @@ import Register from "./pages/Register";
 import Room from "./pages/Room";
 import { Routes, Route } from "react-router-dom";
 import Footer from "./components/Footer";
+import PrivateRoomsDashboard from "./pages/PrivateRoomsDashboard";
+import PvtRoomAuthenticate from "./pages/PvtRoomAuthenticate";
+import PrivateRoom from "./pages/PrivateRoom";
 
 export default function App() {
 	return (
@@ -25,6 +28,18 @@ export default function App() {
 				<Route
 					path="/room/:room_name/:id"
 					element={<Room />}
+				/>
+				<Route
+					path="/private-rooms/dashboard"
+					element={<PrivateRoomsDashboard />}
+				/>
+				<Route
+					path="/:room_name/:room_id/authenticate"
+					element={<PvtRoomAuthenticate />}
+				/>
+				<Route
+					path="/private-room/:room_name/:pvtRoomKey/:pvtRoomId"
+					element={<PrivateRoom />}
 				/>
 			</Routes>
 			<Footer />

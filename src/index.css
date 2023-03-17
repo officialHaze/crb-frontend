@@ -16,3 +16,12 @@ body {
 code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
+
+button {
+	outline: none;
+	border: none;
+}
+
+h1 {
+	color: white;
+}

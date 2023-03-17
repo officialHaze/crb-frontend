@@ -1,43 +1,43 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
+// import axios from "axios";
 
-async function getAdminUsers() {
-	const token = localStorage.getItem("login_bearer");
-	const adminArray = [];
-	try {
-		const { data } = await axios({
-			method: "GET",
-			url: "https://chatroombackend-officialhaze.onrender.com/api/users/registered-users/",
-			// url: "http://localhost:8000/api/users/registered-users/",
-			headers: {
-				Authorization: `Token ${token}`,
-			},
-		});
-		if (data.length === 0) {
-			return data;
-		}
-		data.map(user => {
-			if (user.is_admin) {
-				adminArray.push(user);
-			}
-			return "pushed";
-		});
-		return adminArray;
-	} catch (err) {
-		console.log(err.message);
-	}
-}
+// async function getAdminUsers() {
+// 	const token = localStorage.getItem("login_bearer");
+// 	const adminArray = [];
+// 	try {
+// 		const { data } = await axios({
+// 			method: "GET",
+// 			// url: "https://chatroombackend-officialhaze.onrender.com/api/users/registered-users/",
+// 			url: "http://localhost:8000/api/users/registered-users/",
+// 			headers: {
+// 				Authorization: `Token ${token}`,
+// 			},
+// 		});
+// 		if (data.length === 0) {
+// 			return data;
+// 		}
+// 		data.map(user => {
+// 			if (user.is_admin) {
+// 				adminArray.push(user);
+// 			}
+// 			return "pushed";
+// 		});
+// 		return adminArray;
+// 	} catch (err) {
+// 		console.log(err.message);
+// 	}
+// }
 
 export default function AdminPanel() {
-	const [admins, setAdmins] = useState([]);
+	// const [admins, setAdmins] = useState([]);
 
-	useEffect(() => {
-		const getData = async () => {
-			const admins = await getAdminUsers();
-			setAdmins(admins);
-		};
-		getData();
-	}, []);
+	// useEffect(() => {
+	// 	const getData = async () => {
+	// 		const admins = await getAdminUsers();
+	// 		setAdmins(admins);
+	// 	};
+	// 	getData();
+	// }, []);
 	return (
 		<div className="registered-users-list-container">
 			<div>

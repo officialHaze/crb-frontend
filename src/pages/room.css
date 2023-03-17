@@ -11,7 +11,7 @@ main {
 	background: #393053;
 	padding: 2rem;
 	border-radius: 1rem;
-	height: 55rem;
+	/* height: 55rem; */
 	overflow: auto;
 }
 
@@ -25,10 +25,20 @@ main {
 	font-size: 1.25rem;
 }
 
+/* pvt rooms  */
+.not-authorized-page {
+	padding: 2rem;
+}
+
+.not-authorized-page > h1 {
+	color: #ea5455;
+}
+
+
 /* for small viewports  */
 @media only screen and (max-width: 600px) {
 	.message-participants-section {
-		flex-direction: column;
+		flex-direction: column-reverse;
 		padding: 5rem 0.65rem;
 		gap: 5rem;
 	}
