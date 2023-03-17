@@ -66,14 +66,14 @@ export default function Dashboard() {
 				});
 				if (res.status === 200) {
 					try {
-						const data = await getData(token);
+						const data = await getData(token, liveUrl);
 						setDataSet(data);
 					} catch (err) {
 						console.log(err);
 					}
 				}
 			} catch (err) {
-				console.log(err.message);
+				console.log(err);
 			}
 		}
 	};

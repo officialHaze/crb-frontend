@@ -3,6 +3,7 @@ import axios from "axios";
 import { getData } from "../utils/getRooms";
 
 export default function RoomListContainer({ dataSet, setDataSet }) {
+	const liveUrl = "https://chatroombackend-officialhaze.onrender.com/api/rooms/";
 	return (
 		<div className="rooms-container">
 			{dataSet.length === 0 ? (
@@ -53,7 +54,10 @@ export default function RoomListContainer({ dataSet, setDataSet }) {
 															res.status >= 200 ||
 															res.status <= 300
 														) {
-															const data = await getData(token);
+															const data = await getData(
+																token,
+																liveUrl,
+															);
 															setDataSet(data);
 														}
 													} catch (err) {
