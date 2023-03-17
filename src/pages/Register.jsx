@@ -61,7 +61,7 @@ export default function Register() {
 		}
 	};
 
-	return isRegistered ? (
+	return !isRegistered ? (
 		<div className="register-container">
 			<h1 style={{ color: "white" }}>Sign Up</h1>
 			<form
