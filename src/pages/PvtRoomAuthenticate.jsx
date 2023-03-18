@@ -15,8 +15,10 @@ export default function PvtRoomAuthenticate() {
 	useEffect(() => {
 		const hasToken = () => {
 			const tokenValue = localStorage.getItem("login_bearer");
-			if (tokenValue) setHasToken(true);
-			setToken(tokenValue);
+			if (tokenValue) {
+				setHasToken(true);
+				setToken(tokenValue);
+			}
 		};
 		hasToken();
 	}, []);

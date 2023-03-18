@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { getData } from "../utils/getRooms";
 
-export default function RoomListContainer({ dataSet, setDataSet }) {
+export default function RoomListContainer({ dataSet, setDataSet, setIsLoaded }) {
 	const liveUrl = "https://chatroombackend-officialhaze.onrender.com/api/rooms/";
 	return (
 		<div className="rooms-container">
@@ -41,6 +41,7 @@ export default function RoomListContainer({ dataSet, setDataSet }) {
 												onClick={async () => {
 													const token =
 														localStorage.getItem("login_bearer");
+													setIsLoaded(false);
 													try {
 														const res = await axios({
 															method: "DELETE",
@@ -63,6 +64,7 @@ export default function RoomListContainer({ dataSet, setDataSet }) {
 													} catch (err) {
 														console.log(err.message);
 													}
+													setIsLoaded(true);
 												}}>
 												<i className="fa-solid fa-trash"></i>
 											</button>

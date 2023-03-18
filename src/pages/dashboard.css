@@ -7,15 +7,17 @@ main {
 	font-family: "Montserrat", sans-serif;
 	padding: 2rem;
 	display: flex;
+	flex-direction: row-reverse;
 	justify-content: space-evenly;
+	min-height: 100vh;
 }
 
 .rooms-container {
 	display: flex;
 	flex-direction: column;
 	gap: 2rem;
-	background: #393053;
-	padding: 3rem 5rem;
+	/* background: #282a3a; */
+	padding: 3rem 0;
 	border-radius: 1rem;
 	width: 50rem;
 }
@@ -31,16 +33,17 @@ main {
 	justify-content: space-between;
 	gap: 0.85rem;
 	min-width: 40rem;
-	background: #635985;
+	background: #6b728e;
 	padding: 2rem;
-	border-radius: 1rem;
-	box-shadow: 4px 4px 20px #342b4b;
+	border: 2px solid #282a3a;
+	/* border-radius: 1rem; */
+	/* box-shadow: 4px 4px 20px #342b4b; */
 }
 
 .rooms > div > p {
 	font-size: 1.25rem;
 	padding-bottom: 1rem;
-	color: #bad7e9;
+	color: #c0eef2;
 }
 
 .rooms > div > h1 {
@@ -49,7 +52,7 @@ main {
 
 .room-create-form {
 	padding: 2rem;
-	background: #393053;
+	background: #404258;
 	display: flex;
 	gap: 1rem;
 	justify-content: center;
@@ -68,33 +71,36 @@ main {
 	outline: none;
 	border: none;
 	border-radius: 0.25rem;
-	background: #89c4e1;
 	cursor: pointer;
 }
 
 .room-delete-btn {
-	background: #635985;
+	background: #6b728e;
 	color: #f16767;
+}
+
+.room-create-btn,
+input {
+	background: #6b728e;
 }
 
 .room-create-btn {
 	position: absolute;
 	right: 35.5%;
-	height: 4.5%;
-	background: #635985;
+	height: 4.6%;
 	color: white;
 	font-size: 1.15rem;
 }
 
 /* private room creation btn  */
-.create-pvt-room-btn {
+.navigate-pvt-room-btn {
 	font-size: 0.9rem;
 	cursor: pointer;
-	background: #816797;
+	background: #50577a;
 	padding: 0.2rem;
 }
 
-.create-pvt-room-btn > a {
+.navigate-pvt-room-btn > a {
 	color: rgba(255, 255, 255, 0.801);
 }
 
@@ -102,7 +108,7 @@ main {
 	text-align: right;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
+	justify-content: center;
 }
 
 .pvt-key {
@@ -127,7 +133,6 @@ input {
 	font-size: 1rem;
 	border-radius: 0.5rem;
 	width: 30%;
-	background: #635985;
 	color: white;
 }
 
@@ -138,15 +143,15 @@ input {
 /* for small viewports  */
 @media only screen and (max-width: 600px) {
 	.room-list-section {
-		flex-direction: column;
-		gap: 5rem;
+		flex-direction: column-reverse;
+		gap: 3rem;
 		padding: 2rem 0.5rem;
 	}
 
 	.rooms-container {
 		width: 100%;
 		padding: 2.5rem 1rem;
-		height: 40rem;
+		max-height: 40rem;
 		overflow: auto;
 		font-size: 0.5rem;
 	}
@@ -171,7 +176,7 @@ input {
 	.room-create-btn {
 		position: absolute;
 		right: 1rem;
-		background: #635985;
+		background: none;
 		height: 41%;
 		padding: 0.85rem;
 		font-weight: bold;

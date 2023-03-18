@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 import { useParams } from "react-router-dom";
 import { getPvtMessages } from "../utils/getPvtMessages";
@@ -6,15 +6,19 @@ import MessageSection from "../components/MessageSection";
 import { addParticipants } from "../utils/addParticipants";
 import { getParticipants } from "../utils/getParticipants";
 import RoomParticipants from "../components/RoomParticipants";
-import "./room.css";
 import { postMessages } from "../utils/postMessages";
+import LoaderApp from "../components/Loader";
+import RoomParticipantsSM from "../components/RoomParticipantsSmallScreen";
+import "./room.css";
 
 export default function PrivateRoom() {
 	const { pvtRoomKey, pvtRoomId, room_name } = useParams();
+	const [isLoaded, setIsLoaded] = useState(false);
 	const [messageSet, setMessageSet] = useState([]);
 	const [hasPermission, setHasPermission] = useState(false);
 	const [pvtParticipants, setPvtParticipants] = useState([]);
 	const [message, setMessage] = useState("");
+	const hamMenu = useRef(null);
 
 	useEffect(() => {
 		const localURLToAddOrGetParticipant = `http://localhost:8000/api/rooms/private-room/${pvtRoomId}/private-room-participants/`;
@@ -105,6 +109,7 @@ export default function PrivateRoom() {
 					liveURLToGetPvtTexts,
 				);
 				setMessageSet(messages);
+				setIsLoaded(true);
 				setHasPermission(true);
 			} catch (err) {
 				console.log(err.message);
@@ -155,24 +160,56 @@ export default function PrivateRoom() {
 		};
 	};
 
-	return hasPermission ? (
-		<main>
-			<h1 style={{ padding: "2rem" }}>{room_name}</h1>
-			<div
-				className="message-participants-section"
-				style={{ display: "flex", justifyContent: "space-evenly" }}>
-				<MessageSection
-					dataSet={messageSet}
-					submit={handleSubmit}
-					change={handleChange}
-					messageValue={message}
-				/>
-				<RoomParticipants participants={pvtParticipants} />
+	const handleHamMenuOnClick = () => {
+		hamMenu.current?.classList.remove("ham-menu");
+		hamMenu.current?.classList.add("ham-menu-visible");
+	};
+
+	const handleHamMenuCloseOnClick = () => {
+		hamMenu.current?.classList.add("ham-menu");
+		hamMenu.current?.classList.remove("ham-menu-visible");
+	};
+
+	return isLoaded ? (
+		hasPermission ? (
+			<main>
+				<div
+					onClick={handleHamMenuOnClick}
+					className="hamburger-menu">
+					<i className="fa-solid fa-bars" />
+				</div>
+				<div
+					onClick={handleHamMenuCloseOnClick}
+					ref={hamMenu}
+					className="ham-menu">
+					<RoomParticipantsSM
+						participants={pvtParticipants}
+						isLoaded={isLoaded}
+					/>
+				</div>
+				<div className="message-participants-section">
+					<div className="message-body-only">
+						<h1 style={{ padding: "1rem" }}>{room_name}</h1>
+						<MessageSection
+							dataSet={messageSet}
+							messageValue={message}
+							submit={handleSubmit}
+							change={handleChange}
+							isLoaded={isLoaded}
+						/>
+					</div>
+					<RoomParticipants
+						participants={pvtParticipants}
+						isLoaded={isLoaded}
+					/>
+				</div>
+			</main>
+		) : (
+			<div className="not-authorized-page">
+				<h1>You are not authorized to view this page!</h1>
 			</div>
-		</main>
+		)
 	) : (
-		<div className="not-authorized-page">
-			<h1>You are not authorized to view this page!</h1>
-		</div>
+		<LoaderApp />
 	);
 }

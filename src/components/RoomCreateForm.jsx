@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function RoomCreateForm({ handleSubmit, handleChange, roomName }) {
+export default function RoomCreateForm({ handleSubmit, handleChange, roomName, createbtn }) {
 	return (
 		<div>
 			<form
@@ -13,6 +13,7 @@ export default function RoomCreateForm({ handleSubmit, handleChange, roomName })
 				/>
 				<button
 					className="room-create-btn"
+					ref={createbtn}
 					type="submit">
 					<i className="fa-solid fa-fingerprint"></i>
 				</button>

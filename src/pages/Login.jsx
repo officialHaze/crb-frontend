@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "./login.css";
 
@@ -8,6 +8,7 @@ export default function Login() {
 		user_password: "",
 	});
 	const [hasToken, setHasToken] = useState(false);
+	const loginBtn = useRef(null);
 
 	useEffect(() => {
 		const auth_token = localStorage.getItem("login_bearer");
@@ -46,6 +47,7 @@ export default function Login() {
 
 	const handleSubmit = async e => {
 		e.preventDefault();
+		loginBtn.current?.setAttribute("disabled", null);
 		const { user_email, user_password } = login_credentials;
 		const { data } = await axios.post(
 			"https://chatroombackend-officialhaze.onrender.com/api/auth/",
@@ -58,6 +60,7 @@ export default function Login() {
 		const auth_token = data.token;
 		localStorage.setItem("login_bearer", auth_token);
 		setHasToken(true);
+		loginBtn.current?.removeAttribute("disabled", null);
 	};
 
 	return !hasToken ? (
@@ -81,6 +84,7 @@ export default function Login() {
 					id="password"
 				/>
 				<button
+					ref={loginBtn}
 					type="#"
 					className="login-btn">
 					Login
@@ -89,13 +93,17 @@ export default function Login() {
 					Not registered yet? <a href="/register">Signup here</a>
 				</p>
 			</form>
-			{/* {hasToken && <a href="/">Continue to main page!</a>} */}
 		</div>
 	) : (
 		<div className="logged-in-container">
 			<h1>You are logged in!</h1>
 			<p>
-				<a href="/">Click here to continue to Dashboard !</a>
+				<a
+					style={{ textDecoration: "underline" }}
+					href="/">
+					Click here,
+				</a>
+				<span style={{ color: "white" }}> to continue to Dashboard !</span>
 			</p>
 		</div>
 	);

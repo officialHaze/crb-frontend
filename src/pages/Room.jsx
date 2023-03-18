@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { w3cwebsocket as W3CWebsocket } from "websocket";
 import MessageSection from "../components/MessageSection";
 import "./room.css";
 import RoomParticipants from "../components/RoomParticipants";
+import RoomParticipantsSM from "../components/RoomParticipantsSmallScreen";
 
 const localhostURL = "http://localhost:8000";
 const deployedURL = "https://chatroombackend-officialhaze.onrender.com";
@@ -53,11 +54,13 @@ async function getParticipants(token, room_id) {
 
 export default function Room() {
 	const [hasToken, setHasToken] = useState(false);
+	const [isLoaded, setIsLoaded] = useState(false);
 	const [token, setToken] = useState("");
 	const [dataSet, setDataSet] = useState([]);
 	const [participants, addParticipants] = useState([]);
 	const [message, setMessage] = useState("");
 	const { room_name, id } = useParams();
+	const hamMenu = useRef(null);
 
 	useEffect(() => {
 		const localToken = hasLocalToken();
@@ -86,11 +89,13 @@ export default function Room() {
 		postDataToBackend();
 
 		const getDataFromBackend = async () => {
+			setIsLoaded(false);
 			try {
 				const messages = await getMessages(localToken, id);
 				const participants = await getParticipants(localToken, id);
 				setDataSet(messages);
 				addParticipants(participants);
+				setIsLoaded(true);
 			} catch (err) {
 				localStorage.removeItem("login_bearer");
 				setHasToken(false);
@@ -180,19 +185,47 @@ export default function Room() {
 		}
 	};
 
+	const handleHamMenuOnClick = () => {
+		hamMenu.current?.classList.remove("ham-menu");
+		hamMenu.current?.classList.add("ham-menu-visible");
+	};
+
+	const handleHamMenuCloseOnClick = () => {
+		hamMenu.current?.classList.add("ham-menu");
+		hamMenu.current?.classList.remove("ham-menu-visible");
+	};
+
 	return hasToken ? (
 		<main>
-			<h1 style={{ padding: "2rem" }}>{room_name}</h1>
 			<div
-				className="message-participants-section"
-				style={{ display: "flex", justifyContent: "space-evenly" }}>
-				<MessageSection
-					dataSet={dataSet}
-					messageValue={message}
-					submit={handleSubmit}
-					change={handleChange}
+				onClick={handleHamMenuOnClick}
+				className="hamburger-menu">
+				<i className="fa-solid fa-bars" />
+			</div>
+			<div
+				onClick={handleHamMenuCloseOnClick}
+				ref={hamMenu}
+				className="ham-menu">
+				<RoomParticipantsSM
+					participants={participants}
+					isLoaded={isLoaded}
 				/>
-				<RoomParticipants participants={participants} />
+			</div>
+			<div className="message-participants-section">
+				<div className="message-body-only">
+					<h1 style={{ padding: "1rem" }}>{room_name}</h1>
+					<MessageSection
+						dataSet={dataSet}
+						messageValue={message}
+						submit={handleSubmit}
+						change={handleChange}
+						isLoaded={isLoaded}
+					/>
+				</div>
+				<RoomParticipants
+					participants={participants}
+					isLoaded={isLoaded}
+				/>
 			</div>
 		</main>
 	) : (

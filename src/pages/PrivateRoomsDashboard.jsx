@@ -3,9 +3,11 @@ import RoomCreateForm from "../components/RoomCreateForm";
 import axios from "axios";
 import { getData } from "../utils/getRooms";
 import RoomListContainer from "../components/RoomListContainer";
+import LoaderApp from "../components/Loader";
 
 export default function PrivateRoomsDashboard() {
 	const [hasToken, setHasToken] = useState(false);
+	const [isLoaded, setIsLoaded] = useState(false);
 	const [token, setToken] = useState("");
 	const [dataSet, setDataSet] = useState([]);
 	const [isRoomCreated, setIsRoomCreated] = useState(false);
@@ -23,9 +25,11 @@ export default function PrivateRoomsDashboard() {
 		hasToken();
 
 		const getPvtRooms = async () => {
+			setIsLoaded(false);
 			try {
 				const rooms = await getData(token, liveUrlToGetPvtRooms);
 				setDataSet(rooms);
+				setIsLoaded(true);
 			} catch (err) {
 				console.log(err.message);
 				// localStorage.removeItem("login_bearer");
@@ -66,12 +70,17 @@ export default function PrivateRoomsDashboard() {
 				<h4 style={{ color: "white" }}>Private Chat Rooms</h4>
 			</div>
 			<RoomCreateForm handleSubmit={handleSubmit} />
-			<section className="room-list-section">
-				<RoomListContainer
-					dataSet={dataSet}
-					setDataSet={setDataSet}
-				/>
-			</section>
+			{isLoaded ? (
+				<section className="room-list-section">
+					<RoomListContainer
+						dataSet={dataSet}
+						setDataSet={setDataSet}
+						setIsLoaded={setIsLoaded}
+					/>
+				</section>
+			) : (
+				<LoaderApp />
+			)}
 		</div>
 	) : (
 		<div>login</div>

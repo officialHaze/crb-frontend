@@ -8,10 +8,12 @@ import Footer from "./components/Footer";
 import PrivateRoomsDashboard from "./pages/PrivateRoomsDashboard";
 import PvtRoomAuthenticate from "./pages/PvtRoomAuthenticate";
 import PrivateRoom from "./pages/PrivateRoom";
+import BetaVersionAlert from "./components/BetaVersionAlert";
 
 export default function App() {
 	return (
 		<div className="App">
+			<BetaVersionAlert />
 			<Routes>
 				<Route
 					path="/"

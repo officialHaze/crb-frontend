@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./login.css";
 
 export default function Register() {
@@ -9,6 +9,14 @@ export default function Register() {
 		password: "",
 	});
 	const [isRegistered, setIsRegistered] = useState(false);
+	const registerBtn = useRef(null);
+
+	useEffect(() => {
+		const tokenFromLocalStorage = localStorage.getItem("login_bearer");
+		if (tokenFromLocalStorage) {
+			setIsRegistered(true);
+		}
+	});
 
 	const handleChange = e => {
 		const { id, value } = e.target;
@@ -47,6 +55,7 @@ export default function Register() {
 
 	const handleSubmit = async e => {
 		e.preventDefault();
+		registerBtn.current?.setAttribute("disabled", null);
 		try {
 			const res = await axios.post(
 				"https://chatroombackend-officialhaze.onrender.com/api/users/create/",
@@ -56,6 +65,7 @@ export default function Register() {
 			console.log(res.status);
 			localStorage.setItem("user", registerCredentials.username);
 			setIsRegistered(true);
+			registerBtn.current?.removeAttribute("disabled", null);
 		} catch (err) {
 			console.log(err.message);
 		}
@@ -63,6 +73,13 @@ export default function Register() {
 
 	return !isRegistered ? (
 		<div className="register-container">
+			<div className="register-warning">
+				<h2 style={{ fontWeight: "normal" }}>
+					Since this project is in a testing phase, email verification has been turned
+					off. It is advised not to provide any authentic email ids' or passwords' as of
+					now. You can register with a dummy account and check out the site! Thanks!
+				</h2>
+			</div>
 			<h1 style={{ color: "white" }}>Sign Up</h1>
 			<form
 				className="register-form"
@@ -89,6 +106,7 @@ export default function Register() {
 					placeholder="password"
 				/>
 				<button
+					ref={registerBtn}
 					type="#"
 					className="register-btn">
 					Signup
@@ -98,7 +116,12 @@ export default function Register() {
 	) : (
 		<div className="registered-container">
 			<h1>You are registered!</h1>
-			<a href="/login">Click here to login and continue to the dashboard!</a>
+			<a
+				style={{ textDecoration: "underline" }}
+				href="/login">
+				Click here,
+			</a>
+			<span style={{ color: "white" }}> to login and continue to the dashboard!</span>
 		</div>
 	);
 }

@@ -1,9 +1,12 @@
+/* .message-container-wrapper {
+	width: 100%;
+} */
+
 .message-container {
-	background: #635985;
+	background: #282a3a;
 	padding: 1rem 0;
-	width: 70rem;
 	height: 50rem;
-	border-radius: 1rem 1rem 0 0;
+	/* border-radius: 1rem 1rem 0 0; */
 	text-align: left;
 	color: black;
 	/* font-family: "Poppins", sans-serif; */
@@ -20,7 +23,7 @@
 	height: auto;
 	overflow-wrap: break-word;
 	line-height: 2;
-	background: #393053;
+	background: #6b728e;
 	color: whitesmoke;
 	padding: 1rem;
 	border-radius: 1rem;
@@ -37,14 +40,12 @@
 }
 
 .text-submit-form {
-	position: relative;
+	background: #6b728e;
+	display: flex;
 }
 
 .text-submit-btn {
-	position: absolute;
-	right: 0;
-	height: 95%;
-	background: #393053;
+	background: none;
 	color: #62cdff;
 	font-size: 1.05rem;
 	outline: none;
@@ -72,7 +73,7 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-	background: #393053;
+	background: #555;
 }
 
 /* Handle on hover */
@@ -85,8 +86,8 @@ textarea {
 	outline: none;
 	border: none;
 	resize: none;
-	border-radius: 0 0 1rem 1rem;
-	background: #393053;
+	/* border-radius: 0 0 1rem 1rem; */
+	background: none;
 	font-size: 1.05rem;
 	color: white;
 	width: 100%;
@@ -95,7 +96,7 @@ textarea {
 @media only screen and (max-width: 600px) {
 	.message-container {
 		width: 100%;
-		height: 30rem;
+		height: 40rem;
 	}
 
 	.message-body-wrapper {

@@ -10,7 +10,8 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	min-height: 100vh;
-	background: #443c68;
+	/* background: #443c68; */
+	background: #404258;
 }
 
 code {

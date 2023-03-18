@@ -3,26 +3,33 @@ main {
 }
 
 .message-participants-section {
-	margin-top: 1rem;
-	padding: 5rem 2rem;
+	/* margin-top: 1rem;
+	padding: 5rem 2rem; */
+	display: flex;
+	justify-content: space-between;
 }
 
 .participants-container {
-	background: #393053;
-	padding: 2rem;
-	border-radius: 1rem;
+	background: #282a3a;
+	padding: 1rem;
+	width: 30%;
+	/* border-radius: 1rem; */
 	/* height: 55rem; */
 	overflow: auto;
 }
 
+.participants-container-sm {
+	display: none;
+}
+
 .participants-container > h1 {
 	font-weight: normal;
-	padding: 1rem;
 }
 
 .participant-username {
 	color: #46cb4d;
-	font-size: 1.25rem;
+	font-size: 1.15rem;
+	padding: 1rem 0;
 }
 
 /* pvt rooms  */
@@ -34,12 +41,64 @@ main {
 	color: #ea5455;
 }
 
+.message-body-only {
+	width: 70%;
+}
+
+.hamburger-menu {
+	display: block;
+	cursor: pointer;
+	text-align: left;
+	display: none;
+}
+
+.ham-menu,
+.ham-menu-visible {
+	position: absolute;
+	height: 100vh;
+	width: fit-content;
+	text-align: left;
+	transition: transform 1s;
+}
+
+.ham-menu {
+	transform: translateX(-20rem);
+}
+
+.ham-menu-visible {
+	transform: translateX(0);
+}
 
 /* for small viewports  */
 @media only screen and (max-width: 600px) {
 	.message-participants-section {
 		flex-direction: column-reverse;
-		padding: 5rem 0.65rem;
+		padding: 2rem 0.65rem;
 		gap: 5rem;
+	}
+
+	.message-body-only {
+		width: 100%;
+	}
+
+	.hamburger-menu {
+		display: block;
+		cursor: pointer;
+		width: fit-content;
+		padding: 1rem;
+		font-size: 1.25rem;
+	}
+
+	.participants-container {
+		display: none;
+	}
+
+	.participants-container-sm {
+		display: block;
+		background: #282a3a;
+		padding: 1rem;
+		text-align: center;
+		width: 100%;
+		height: 100%;
 	}
 }
