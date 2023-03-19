@@ -83,6 +83,8 @@ export default function PrivateRoomsDashboard() {
 			)}
 		</div>
 	) : (
-		<div>login</div>
+		<div>
+			<a href="/login">Login</a>
+		</div>
 	);
 }
