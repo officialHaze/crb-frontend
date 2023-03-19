@@ -46,7 +46,6 @@ main {
 }
 
 .hamburger-menu {
-	display: block;
 	cursor: pointer;
 	text-align: left;
 	display: none;
@@ -56,8 +55,8 @@ main {
 .side-menu-visible {
 	position: absolute;
 	left: 0;
-	top: 6.5%;
-	height: 110vh;
+	top: 0;
+	height: 127vh;
 	width: fit-content;
 	text-align: left;
 	transition: transform 1s;
@@ -91,7 +90,6 @@ main {
 
 	.hamburger-menu {
 		display: block;
-		cursor: pointer;
 		width: fit-content;
 		padding: 1rem;
 		font-size: 1.25rem;
