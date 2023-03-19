@@ -1,13 +1,9 @@
 import React from "react";
+import "./betaVAlert.css";
 
 export default function BetaVersionAlert() {
-	const style = {
-		padding: "0.25rem",
-		background: "#FFDD83",
-		fontWeight: "bold",
-	};
 	return (
-		<div style={style}>
+		<div className="beta-warning-container">
 			<p>
 				This project is currently in Beta version and running on free resources, so items
 				might take some time to load. You can check out the site and report any bugs or

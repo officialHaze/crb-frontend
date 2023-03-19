@@ -10,6 +10,7 @@ import PvtRoomAuthenticate from "./pages/PvtRoomAuthenticate";
 import PrivateRoom from "./pages/PrivateRoom";
 import BetaVersionAlert from "./components/BetaVersionAlert";
 
+
 export default function App() {
 	return (
 		<div className="App">

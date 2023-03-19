@@ -4,7 +4,7 @@
 }
 
 .registered-users-list-container {
-	min-width: 25rem;
+	width: 25rem;
 	display: flex;
 	flex-direction: column;
 	gap: 1.5rem;
@@ -12,6 +12,8 @@
 	padding: 3rem 2rem;
 	background: #282a3a;
 	border-radius: 1rem;
+	max-height: 40rem;
+	overflow: auto;
 }
 
 ul {
@@ -30,4 +32,13 @@ li > p:nth-child(1) {
 li > p:nth-child(2) {
 	font-size: 0.9rem;
 	color: #fcffe7;
+}
+
+@media only screen and (max-width: 600px) {
+	.registered-users-list-container {
+		width: 15rem;
+		border-radius: 0;
+		padding: 2rem 1rem;
+		font-size: 0.85rem;
+	}
 }

@@ -72,7 +72,7 @@ export default function MessageSection({ dataSet, messageValue, submit, change, 
 				onSubmit={submit}>
 				<textarea
 					onChange={change}
-					placeholder="Type your message here..."
+					placeholder="Type here..."
 					value={messageValue}
 					onKeyDown={handleKeyDown}
 				/>

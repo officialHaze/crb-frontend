@@ -9,7 +9,9 @@ main {
 	display: flex;
 	flex-direction: row-reverse;
 	justify-content: space-evenly;
-	min-height: 100vh;
+	/* min-height: 100vh; */
+	max-height: 100vh;
+	overflow: auto;
 }
 
 .rooms-container {
@@ -18,7 +20,6 @@ main {
 	gap: 2rem;
 	/* background: #282a3a; */
 	padding: 3rem 0;
-	border-radius: 1rem;
 	width: 50rem;
 }
 
@@ -51,6 +52,7 @@ main {
 }
 
 .room-create-form {
+	position: relative;
 	padding: 2rem;
 	background: #404258;
 	display: flex;
@@ -87,9 +89,10 @@ input {
 .room-create-btn {
 	position: absolute;
 	right: 35.5%;
-	height: 4.6%;
+	height: 41%;
 	color: white;
 	font-size: 1.15rem;
+	border-radius: 1rem;
 }
 
 /* private room creation btn  */
@@ -117,10 +120,6 @@ input {
 	color: rgba(255, 255, 255, 0.925);
 }
 
-.pvt-key-info {
-	color: rgba(252, 252, 252, 0.555);
-}
-
 a {
 	text-decoration: none;
 	color: white;
@@ -142,6 +141,10 @@ input {
 
 /* for small viewports  */
 @media only screen and (max-width: 600px) {
+	.dashboard-user-info-container {
+		display: none;
+	}
+
 	.room-list-section {
 		flex-direction: column-reverse;
 		gap: 3rem;
@@ -150,7 +153,7 @@ input {
 
 	.rooms-container {
 		width: 100%;
-		padding: 2.5rem 1rem;
+		padding: 2.5rem 0;
 		max-height: 40rem;
 		overflow: auto;
 		font-size: 0.5rem;

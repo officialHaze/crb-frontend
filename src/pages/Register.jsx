@@ -16,7 +16,7 @@ export default function Register() {
 		if (tokenFromLocalStorage) {
 			setIsRegistered(true);
 		}
-	});
+	}, []);
 
 	const handleChange = e => {
 		const { id, value } = e.target;
@@ -55,19 +55,27 @@ export default function Register() {
 
 	const handleSubmit = async e => {
 		e.preventDefault();
-		registerBtn.current?.setAttribute("disabled", null);
-		try {
-			const res = await axios.post(
-				"https://chatroombackend-officialhaze.onrender.com/api/users/create/",
-				// `http://localhost:8000/api/users/create/`,
-				registerCredentials,
-			);
-			console.log(res.status);
-			localStorage.setItem("user", registerCredentials.username);
-			setIsRegistered(true);
-			registerBtn.current?.removeAttribute("disabled", null);
-		} catch (err) {
-			console.log(err.message);
+		if (
+			registerCredentials.email &&
+			registerCredentials.password &&
+			registerCredentials.username
+		) {
+			registerBtn.current?.setAttribute("disabled", null);
+			try {
+				const res = await axios.post(
+					"https://chatroombackend-officialhaze.onrender.com/api/users/create/",
+					// `http://localhost:8000/api/users/create/`,
+					registerCredentials,
+				);
+				console.log(res.status);
+				localStorage.setItem("user", registerCredentials.username);
+				setIsRegistered(true);
+				registerBtn.current?.removeAttribute("disabled", null);
+			} catch (err) {
+				console.log(err.message);
+			}
+		} else {
+			alert("Email, Username & Password. All 3 of these fields are required to proceed.");
 		}
 	};
 
@@ -76,8 +84,8 @@ export default function Register() {
 			<div className="register-warning">
 				<h2 style={{ fontWeight: "normal" }}>
 					Since this project is in a testing phase, email verification has been turned
-					off. It is advised not to provide any authentic email ids' or passwords' as of
-					now. You can register with a dummy account and check out the site! Thanks!
+					off. So, if you don't feel like sharing your original info as of now, you can
+					always register with a dummy account and check out the site! Thanks!
 				</h2>
 			</div>
 			<h1 style={{ color: "white" }}>Sign Up</h1>
@@ -115,7 +123,7 @@ export default function Register() {
 		</div>
 	) : (
 		<div className="registered-container">
-			<h1>You are registered!</h1>
+			<h1>You have been successfully registered!</h1>
 			<a
 				style={{ textDecoration: "underline" }}
 				href="/login">

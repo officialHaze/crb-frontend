@@ -21,7 +21,7 @@
 	background: #19a7ce;
 	font-size: 1rem;
 	cursor: pointer;
-	font-weight: bold;
+	/* font-weight: bold; */
 }
 
 .logged-in-container,
@@ -48,7 +48,7 @@
 @media only screen and (max-width: 600px) {
 	.login-btn,
 	.register-container {
-		padding: 3rem 1rem;
+		padding: 1rem;
 	}
 
 	.register-warning {

@@ -7,7 +7,7 @@ export default function RoomParticipantsSM({ participants, isLoaded }) {
 			<div style={{ textAlign: "left", fontSize: "1.25rem" }}>
 				<i
 					style={{ cursor: "pointer" }}
-					className="fa-regular fa-circle-xmark"
+					className="fa-solid fa-xmark"
 				/>
 			</div>
 			<h2>Current Participants:</h2>

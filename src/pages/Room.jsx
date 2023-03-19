@@ -6,6 +6,7 @@ import MessageSection from "../components/MessageSection";
 import "./room.css";
 import RoomParticipants from "../components/RoomParticipants";
 import RoomParticipantsSM from "../components/RoomParticipantsSmallScreen";
+import HamMenu from "../components/HamMenu";
 
 const localhostURL = "http://localhost:8000";
 const deployedURL = "https://chatroombackend-officialhaze.onrender.com";
@@ -185,27 +186,18 @@ export default function Room() {
 		}
 	};
 
-	const handleHamMenuOnClick = () => {
-		hamMenu.current?.classList.remove("ham-menu");
-		hamMenu.current?.classList.add("ham-menu-visible");
-	};
-
 	const handleHamMenuCloseOnClick = () => {
-		hamMenu.current?.classList.add("ham-menu");
-		hamMenu.current?.classList.remove("ham-menu-visible");
+		hamMenu.current?.classList.add("side-menu");
+		hamMenu.current?.classList.remove("side-menu-visible");
 	};
 
 	return hasToken ? (
 		<main>
-			<div
-				onClick={handleHamMenuOnClick}
-				className="hamburger-menu">
-				<i className="fa-solid fa-bars" />
-			</div>
+			<HamMenu hamMenu={hamMenu} />
 			<div
 				onClick={handleHamMenuCloseOnClick}
 				ref={hamMenu}
-				className="ham-menu">
+				className="side-menu">
 				<RoomParticipantsSM
 					participants={participants}
 					isLoaded={isLoaded}

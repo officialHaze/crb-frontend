@@ -47,20 +47,30 @@ export default function Login() {
 
 	const handleSubmit = async e => {
 		e.preventDefault();
-		loginBtn.current?.setAttribute("disabled", null);
-		const { user_email, user_password } = login_credentials;
-		const { data } = await axios.post(
-			"https://chatroombackend-officialhaze.onrender.com/api/auth/",
-			// "http://localhost:8000/api/auth/",
-			{
-				username: user_email,
-				password: user_password,
-			},
-		);
-		const auth_token = data.token;
-		localStorage.setItem("login_bearer", auth_token);
-		setHasToken(true);
-		loginBtn.current?.removeAttribute("disabled", null);
+		if (login_credentials.user_email && login_credentials.user_password) {
+			loginBtn.current?.setAttribute("disabled", null);
+			const { user_email, user_password } = login_credentials;
+			try {
+				const { data } = await axios.post(
+					"https://chatroombackend-officialhaze.onrender.com/api/auth/",
+					// "http://localhost:8000/api/auth/",
+					{
+						username: user_email,
+						password: user_password,
+					},
+				);
+				const auth_token = data.token;
+				localStorage.setItem("login_bearer", auth_token);
+				setHasToken(true);
+				loginBtn.current?.removeAttribute("disabled", null);
+			} catch (err) {
+				console.log(err.message);
+				alert("Error while logging in ! Please check the credentials properly and retry.");
+				loginBtn.current?.removeAttribute("disabled", null);
+			}
+		} else {
+			alert("All the fields are required to proceed");
+		}
 	};
 
 	return !hasToken ? (
@@ -96,7 +106,7 @@ export default function Login() {
 		</div>
 	) : (
 		<div className="logged-in-container">
-			<h1>You are logged in!</h1>
+			<h1>You have been successfully logged in!</h1>
 			<p>
 				<a
 					style={{ textDecoration: "underline" }}

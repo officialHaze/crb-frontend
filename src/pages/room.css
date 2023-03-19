@@ -52,28 +52,36 @@ main {
 	display: none;
 }
 
-.ham-menu,
-.ham-menu-visible {
+.side-menu,
+.side-menu-visible {
 	position: absolute;
-	height: 100vh;
+	left: 0;
+	top: 6.5%;
+	height: 110vh;
 	width: fit-content;
 	text-align: left;
 	transition: transform 1s;
+	z-index: 10;
+	background: #282a3a;
 }
 
-.ham-menu {
+.side-menu {
 	transform: translateX(-20rem);
 }
 
-.ham-menu-visible {
+.side-menu-visible {
 	transform: translateX(0);
+}
+
+.fa-xmark {
+	opacity: 0.3;
 }
 
 /* for small viewports  */
 @media only screen and (max-width: 600px) {
 	.message-participants-section {
 		flex-direction: column-reverse;
-		padding: 2rem 0.65rem;
+		padding: 0;
 		gap: 5rem;
 	}
 

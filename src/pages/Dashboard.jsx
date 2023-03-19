@@ -1,12 +1,13 @@
+import "./dashboard.css";
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import "./dashboard.css";
 import RegisteredUsers from "../components/RegisteredUsers";
 import AdminPanel from "../components/AdminPanel";
 import RoomCreateForm from "../components/RoomCreateForm";
 import { getData } from "../utils/getRooms";
 import RoomListContainer from "../components/RoomListContainer";
 import LoaderApp from "../components/Loader";
+import Header from "../components/Header";
 
 function hasLocalToken() {
 	const localToken = localStorage.getItem("login_bearer");
@@ -88,6 +89,7 @@ export default function Dashboard() {
 
 	return hasToken ? (
 		<main>
+			<Header />
 			<RoomCreateForm
 				handleSubmit={handleSubmit}
 				handleChange={handleChange}

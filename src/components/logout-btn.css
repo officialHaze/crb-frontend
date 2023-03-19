@@ -1,0 +1,23 @@
+/* logout button  */
+.logout-btn {
+	padding: 0.65rem 0.85rem;
+	font-size: 1.45rem;
+	background: none;
+	border-radius: 0.5rem;
+	color: rgba(255, 255, 255, 0.678);
+	cursor: pointer;
+	position: absolute;
+	right: 3rem;
+	top: 25%;
+}
+
+.logout-btn:hover {
+	color: rgba(255, 255, 255, 0.432);
+}
+
+@media only screen and (max-width: 600px) {
+	.logout-btn {
+		top: 95%;
+		right: 35%;
+	}
+}
