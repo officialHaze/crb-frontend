@@ -58,6 +58,7 @@ export default function Recorder({ messageReceived, setMessageReceived }) {
 		if (chunks.length >= 1) {
 			const blob = new Blob(chunks, { type: "audio/mp3; codecs=opus" });
 			audioLink = URL.createObjectURL(blob);
+			setChunks([]);
 			handleBlob(blob, setBase64String);
 		}
 	}, [chunks, pvtRoomId]);
