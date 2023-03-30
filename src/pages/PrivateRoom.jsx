@@ -19,6 +19,7 @@ export default function PrivateRoom() {
 	const [hasPermission, setHasPermission] = useState(false);
 	const [pvtParticipants, setPvtParticipants] = useState([]);
 	const [message, setMessage] = useState("");
+	const [messageReceived, setMessageReceived] = useState(null);
 	const hamMenu = useRef(null);
 
 	useEffect(() => {
@@ -65,6 +66,11 @@ export default function PrivateRoom() {
 				} catch (err) {
 					console.log(err.message);
 				}
+			} else if (data.type === "audio_content") {
+				setMessageReceived(true);
+				setMessageSet(prevObj => {
+					return [...prevObj, data];
+				});
 			}
 		};
 	}, [pvtRoomKey, pvtRoomId]);
@@ -112,6 +118,7 @@ export default function PrivateRoom() {
 				setMessageSet(messages);
 				setIsLoaded(true);
 				setHasPermission(true);
+				setMessageReceived(true);
 			} catch (err) {
 				console.log(err.message);
 				setHasPermission(false);
@@ -153,6 +160,7 @@ export default function PrivateRoom() {
 		client.onopen = () => {
 			client.send(
 				JSON.stringify({
+					type: "text_data",
 					message: message,
 					username: username,
 					created: currentDate,
@@ -187,6 +195,8 @@ export default function PrivateRoom() {
 							submit={handleSubmit}
 							change={handleChange}
 							isLoaded={isLoaded}
+							messageReceived={messageReceived}
+							setMessageReceived={setMessageReceived}
 						/>
 					</div>
 					<RoomParticipants

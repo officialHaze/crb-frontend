@@ -108,13 +108,10 @@ export default function Room() {
 		const client = new W3CWebsocket(
 			`wss://chatroombackend-officialhaze.onrender.com/ws/rooms/${id}/?token=${token}`,
 		);
-		client.onopen = () => {
-			console.log("WS connection established");
-		};
 		// const client = new W3CWebsocket(`ws://127.0.0.1:8000/ws/rooms/${id}/?token=${token}`);
-		// client.onopen = () => {
-		// 	console.log("websocket connection established!");
-		// };
+		client.onopen = () => {
+			console.log("websocket connection established!");
+		};
 
 		client.onmessage = async e => {
 			const data = JSON.parse(e.data);

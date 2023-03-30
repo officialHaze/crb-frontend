@@ -57,7 +57,8 @@ export default function RoomListContainer({ dataSet, setDataSet, setIsLoaded }) 
 															) {
 																const data = await getData(
 																	token,
-																	liveUrl,
+																	// liveUrl,
+																	"https://chatroombackend-officialhaze.onrender.com/api/rooms/",
 																);
 																setDataSet(data);
 															}

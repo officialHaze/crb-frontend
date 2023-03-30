@@ -50,6 +50,7 @@ export default function PrivateRoomsDashboard() {
 				const res = await axios({
 					method: "POST",
 					url: `https://chatroombackend-officialhaze.onrender.com/api/rooms/private-rooms/`,
+					// url: `http://localhost:8000/api/rooms/private-rooms/`,
 					data: {
 						room_name: roomName,
 					},

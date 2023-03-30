@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import LoaderApp from "../components/Loader";
+import Recorder from "../components/Recorder";
 import "./MessageSection.css";
 
 const getPostedTime = genericTime => {
@@ -12,7 +13,15 @@ const getPostedTime = genericTime => {
 	return currentTime;
 };
 
-export default function MessageSection({ dataSet, messageValue, submit, change, isLoaded }) {
+export default function MessageSection({
+	dataSet,
+	messageValue,
+	submit,
+	change,
+	isLoaded,
+	messageReceived,
+	setMessageReceived,
+}) {
 	const bottomDiv = useRef(null);
 
 	useEffect(() => {
@@ -28,11 +37,6 @@ export default function MessageSection({ dataSet, messageValue, submit, change, 
 
 	return (
 		<div className="message-container-wrapper">
-			{/* <h2
-				className="message-length-heading"
-				style={{ paddingLeft: "3rem" }}>
-				Messages: {dataSet.length}
-			</h2> */}
 			{isLoaded ? (
 				<div
 					className="message-container"
@@ -40,7 +44,8 @@ export default function MessageSection({ dataSet, messageValue, submit, change, 
 					{dataSet.map((data, index) => {
 						const user = localStorage.getItem("user");
 						const message_sender = data.message_creator.username;
-						const postedTime = getPostedTime(data.created);
+						const postTime = data.created ? data.created : data.recorded;
+						const postedTime = getPostedTime(postTime);
 						return (
 							<div
 								className="message-body-wrapper"
@@ -54,7 +59,15 @@ export default function MessageSection({ dataSet, messageValue, submit, change, 
 									<p style={{ fontWeight: "bold" }}>
 										{data.message_creator.username}
 									</p>
-									<p>{data.message_body}</p>
+									{data.message_body && <p>{data.message_body}</p>}
+									{data.voice_clip && (
+										<audio controls>
+											<source
+												src={data.voice_clip}
+												type="audio/mp3"
+											/>
+										</audio>
+									)}
 									<div className="posted-time">
 										<p>{postedTime}</p>
 									</div>
@@ -81,6 +94,10 @@ export default function MessageSection({ dataSet, messageValue, submit, change, 
 					type="submit">
 					<i className="fa-solid fa-paper-plane"></i>
 				</button>
+				<Recorder
+					messageReceived={messageReceived}
+					setMessageReceived={setMessageReceived}
+				/>
 			</form>
 		</div>
 	);

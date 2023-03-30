@@ -10,7 +10,6 @@ export async function getParticipants(token, url) {
 				Authorization: `Token ${token}`,
 			},
 		});
-		console.log(data);
 		return data;
 	} catch (err) {
 		throw err;
